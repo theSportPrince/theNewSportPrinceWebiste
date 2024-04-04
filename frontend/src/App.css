@@ -1,0 +1,15 @@
+.App{
+
+}
+@media (max-width: 768px) {
+    .Footer {
+      display: none;
+    }
+  }
+  
+  /* Hide BottomNavigationBar on larger screens (laptop, desktop) */
+  @media (min-width: 769px) {
+    .BottomNavigationBar {
+      display: none;
+    }
+  }
