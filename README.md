@@ -9,9 +9,9 @@ Step 6:-Initalize all the required varaible
 
 example frontend .git file
 REACT_APP_BASE_URL=http://localhost:5000
-REACT_APP_SECRET_KEY="google develoeper account secret key"
-REACT_APP_TOKEN="your google developer accont token"
-REACT_APP_ACCESS_KEY="google developer account access key"
+REACT_APP_SECRET_KEY="match info api  secret key"
+REACT_APP_TOKEN="your match api token accont token"
+REACT_APP_ACCESS_KEY="match api  access key"
 REACT_APP_NEW_APIKEY="news api key"
 
 example backend .git file
