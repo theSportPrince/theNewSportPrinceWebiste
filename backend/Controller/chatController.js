@@ -6,7 +6,7 @@ const accessChat = asyncHandler(async (req, res) => {
   try {
     const { userId, user } = req.body;
 
-    console.log("-------------------", userId, user._id);
+    
     if (!userId) {
       console.log("userId params not sent with request");
       return;
@@ -116,16 +116,13 @@ const fetchChats = asyncHandler(async (req, res) => {
 });
 
 const createGroupChat = asyncHandler(async (req, res) => {
-  if (!req.body.groupMembers || !req.body.name) {
+ 
+  if (!req.body.name) {
     return res.status(400).send({ message: "please fill all the details" });
   }
 
-  var users = JSON.parse(req.body.groupMembers);
-  if (users.length < 2) {
-    return res
-      .status(400)
-      .send("More than 2 users are required for the group chat");
-  }
+  var users=[];
+
 
   if (
     !req.body.loggedInUser ||
