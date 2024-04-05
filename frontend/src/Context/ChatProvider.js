@@ -11,16 +11,25 @@ const ChatProvider = ({ children }) => {
 
   const history = useNavigate();
 
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userData"));
-    console.log("User Info from localStorage:", userInfo);
-    if (userInfo) {
-      const { user } = userInfo;
-      setUser(user);
+ useEffect(() => {
+    const userInfoString = localStorage.getItem("userData");
+    console.log("User Info from localStorage:", userInfoString);
+    if (userInfoString) {
+      try {
+        const userInfo = JSON.parse(userInfoString);
+        console.log("Parsed User Info:", userInfo);
+        
+        if(userInfo){
+          setUser(userInfo);
+        }
+       
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error);
+      }
     }
   }, []);
 
-  console.log("---------------------user", user);
+
 
   return (
     <ChatContext.Provider
