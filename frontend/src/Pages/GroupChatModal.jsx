@@ -67,25 +67,31 @@ const GroupChatModal = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = async () => {
-    if (!groupChatName || !selectedUsers.length) {
+    // if (!groupChatName || !selectedUsers.length) {
+    //   setHasError(true);
+    //   setErrorMessage("All feild are required");
+    //   return;
+    // }
+    if (!groupChatName) {
       setHasError(true);
       setErrorMessage("All feild are required");
       return;
     }
 
     try {
+      console.log(user);
+
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/chat/group`,
         {
           name: groupChatName,
-          groupMembers: JSON.stringify(selectedUsers.map((u) => u._id)),
-          loggedInUser:user,
-         
+          // groupMembers: JSON.stringify(selectedUsers.map((u) => u._id)),
+          loggedInUser: user,
         }
       );
       console.log("groupModalChat", response?.data);
       console.log("Creating group chat...", selectedUsers);
-      setChats([response?.data,...chats]);
+      setChats([response?.data, ...chats]);
       setIsSuccess(true);
       setSuccessMessage("Group Created Successfully");
       onClose();
@@ -95,7 +101,6 @@ const GroupChatModal = ({ isOpen, onClose }) => {
   };
 
   return (
-
     <Modal open={isOpen} onClose={onClose}>
       <Box
         sx={{
@@ -109,13 +114,13 @@ const GroupChatModal = ({ isOpen, onClose }) => {
           p: 4,
         }}
       >
-           {hasError && (
-        <ErrorNotifier {...{ message: errorMessage, setHasError }} />
-      )}
+        {hasError && (
+          <ErrorNotifier {...{ message: errorMessage, setHasError }} />
+        )}
 
-      {isSuccess && (
-        <SuccessNotifier {...{ message: successMessage, setIsSuccess }} />
-      )}
+        {isSuccess && (
+          <SuccessNotifier {...{ message: successMessage, setIsSuccess }} />
+        )}
         <Typography variant="h6" gutterBottom>
           Create Group Chat
         </Typography>
@@ -128,7 +133,7 @@ const GroupChatModal = ({ isOpen, onClose }) => {
             onChange={(e) => setGroupChatName(e.target.value)}
           />
         </FormControl>
-        <FormControl fullWidth mb={2}>
+        {/* <FormControl fullWidth mb={2}>
           <InputLabel htmlFor="search-users">Add Users</InputLabel>
           <Input
             id="search-users"
@@ -136,7 +141,7 @@ const GroupChatModal = ({ isOpen, onClose }) => {
             value={search}
             onChange={(e) => handleSearch(e.target.value)}
           />
-        </FormControl>
+        </FormControl> */}
         <Box display="flex" flexWrap="wrap" mb={2}>
           {selectedUsers.map((user) => (
             <Button
