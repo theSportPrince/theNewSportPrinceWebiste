@@ -206,14 +206,14 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
           </Button>
 
           {/* Text field for searching users to add */}
-          <FormControl fullWidth mb={2}>
+          {/* <FormControl fullWidth mb={2}>
             <InputLabel htmlFor="search-user">Search User to Add</InputLabel>
             <Input
               id="search-user"
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
             />
-          </FormControl>
+          </FormControl> */}
           <Box display="flex" flexWrap="wrap" mb={2}>
             {selectedUsers.map((user) => (
               <Button
@@ -249,7 +249,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
 
           {/* Display group members */}
 
-          <Typography variant="body1">Group Members:</Typography>
+          {/* <Typography variant="body1">Group Members:</Typography>
           {selectedChat.users.map((user) => (
             <Button
               key={user._id}
@@ -258,7 +258,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             >
               {user.firstName} <Close />
             </Button>
-          ))}
+          ))} */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseModal} color="primary">
