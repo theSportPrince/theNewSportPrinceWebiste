@@ -131,7 +131,7 @@ app.get(
     loggedInUserProfile = req.user;
     flag = true;
     console.log("----req.user", req.user);
-    res.redirect("http://localhost:3000");
+    res.redirect("https://thesportsprince.com");
   }
 );
 app.get("/login/sucess", async (req, res) => {
