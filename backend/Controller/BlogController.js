@@ -36,7 +36,8 @@ const createBlog = asyncHandler(async (req, res) => {
     console.log(imageUrls);
 
     if (!user || !title || !description || !imageUrls || imageUrls.length === 0) {
-      return res.status(400).json({ error: "All fields are required and imageUrl should be a non-empty array." });
+      console.log(user,title,description,imageUrls);
+      return res.status(400).json({ error: "All fields are required and imageUrl should be a non-empty array.",user,title,description,imageUrls });
     }
 
     const Blogger = await User.findById(user);
