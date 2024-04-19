@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const blogSchema = new mongoose.Schema({
   title: {
@@ -9,13 +9,17 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  videoUrl: {
+    type: String,
+    required: true,
+  },
   imageUrls: {
     type: [String], // Array of strings
-    validate: [arrayLimit, '{PATH} exceeds the limit of 3'], // Custom validation for limiting the array length
+    validate: [arrayLimit, "{PATH} exceeds the limit of 3"], // Custom validation for limiting the array length
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   createdAt: {
@@ -29,6 +33,6 @@ function arrayLimit(val) {
   return val.length <= 3;
 }
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Blog = mongoose.model("Blog", blogSchema);
 
 module.exports = Blog;
