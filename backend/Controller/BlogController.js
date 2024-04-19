@@ -2,42 +2,25 @@ const asyncHandler = require("express-async-handler");
 const Blog = require("../Models/BlogModel");
 const User = require("../Models/UserModal");
 
-// const createBlog = asyncHandler(async (req, res) => {
-//   try {
-//     const { title, description, imageUrl, userId } = req.body;
 
-//     if (!userId || !title || !description || !imageUrl) {
-//       return res.status(400).json({ error: "All fields are required." });
-//     }
-
-//     const Blogger = await User.findById(userId);
-//     if (!Blogger) {
-//       res.status(404);
-//       throw new Error("User not found");
-//     }
-
-//     const blog = new Blog({
-//       title,
-//       description,
-//       imageUrl,
-//       user: userId,
-//     });
-
-//     const createdBlog = await blog.save();
-//     res.status(201).json(createdBlog);
-//   } catch (error) {
-//     res.status(404).json(error);
-//   }
-// });
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
-    const { title, description, imageUrls, user } = req.body;
+    const { title, description, imageUrls, user, videoUrl } = req.body;
     console.log(imageUrls);
 
-    if (!user || !title || !description || !imageUrls || imageUrls.length === 0) {
-     
-      return res.status(400).json({ error: "All fields are required and imageUrl should be a non-empty array." });
+    if (
+      !user ||
+      !title ||
+      !description ||
+      !imageUrls ||
+      imageUrls.length === 0 ||
+      !videoUrl
+    ) {
+      return res.status(400).json({
+        error:
+          "All fields are required and imageUrl should be a non-empty array.",
+      });
     }
 
     const Blogger = await User.findById(user);
@@ -50,6 +33,7 @@ const createBlog = asyncHandler(async (req, res) => {
       title,
       description,
       imageUrls,
+      videoUrl,
       user: user,
     });
 
@@ -60,7 +44,6 @@ const createBlog = asyncHandler(async (req, res) => {
   }
 });
 
-
 const getBlogs = asyncHandler(async (req, res) => {
   const blogs = await Blog.find().populate("user", "name email");
   res.json(blogs);
@@ -69,7 +52,7 @@ const getBlogs = asyncHandler(async (req, res) => {
 const updateBlog = asyncHandler(async (req, res) => {
   const { title, description, imageUrl, userId } = req.body;
 
-  if (!userId || !title || !description || !imageUrl) {
+  if (!userId || !title || !description || !imageUrl ) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
@@ -89,6 +72,7 @@ const updateBlog = asyncHandler(async (req, res) => {
   blog.description = description;
   blog.imageUrl = imageUrl;
   blog.user = userId;
+ 
 
   const updatedBlog = await blog.save();
   res.json(updatedBlog);
