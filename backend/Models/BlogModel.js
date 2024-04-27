@@ -1,3 +1,5 @@
+
+
 const mongoose = require("mongoose");
 
 const blogSchema = new mongoose.Schema({
@@ -9,13 +11,13 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  videoUrl: {
-    type: String,
-    required: true,
-  },
   imageUrls: {
     type: [String], // Array of strings
     validate: [arrayLimit, "{PATH} exceeds the limit of 3"], // Custom validation for limiting the array length
+  },
+  videoUrl: {
+    type: String,
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -25,6 +27,22 @@ const blogSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  matchtitle: {
+    type: String,
+    required: true,
+  },
+  venue: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: String,
+    required: true,
+  },
+  live: {
+    type: String,
+    required: true,
   },
 });
 
