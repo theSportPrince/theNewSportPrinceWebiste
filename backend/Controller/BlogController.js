@@ -33,10 +33,6 @@
 //   }
 // });
 
-
-
-
-
 // const getBlogs = asyncHandler(async (req, res) => {
 //   const blogs = await Blog.find().populate("user", "name email");
 //   res.json(blogs);
@@ -82,16 +78,23 @@
 
 // module.exports = { createBlog, getBlogs, updateBlog, deleteBlog };
 
-
 const asyncHandler = require("express-async-handler");
 const Blog = require("../Models/BlogModel");
 const User = require("../Models/UserModal");
 
-
-
 const createBlog = asyncHandler(async (req, res) => {
   try {
-    const { title, description, imageUrls, videoUrl, user, matchtitle,  venue, date, live } = req.body;
+    const {
+      title,
+      description,
+      imageUrls,
+      videoUrl,
+      user,
+      matchtitle,
+      venue,
+      date,
+      live,
+    } = req.body;
     // console.log(title, description, imageUrls, user, matchtitle, venue, date, live);
 
     if (
@@ -136,18 +139,40 @@ const createBlog = asyncHandler(async (req, res) => {
   }
 });
 
-
-
 const getBlogs = asyncHandler(async (req, res) => {
   const blogs = await Blog.find().populate("user", "name email");
   res.json(blogs);
 });
 
 const updateBlog = asyncHandler(async (req, res) => {
-  const { title, description, imageUrl, userId } = req.body;
+  const {
+    title,
+    description,
+    imageUrls,
+    videoUrl,
+    userId,
+    matchtitle,
+    venue,
+    date,
+    live,
+  } = req.body;
 
-  if (!userId || !title || !description || !imageUrl ) {
-    return res.status(400).json({ error: "All fields are required." });
+  if (
+    !userId ||
+    !title ||
+    !description ||
+    !imageUrls ||
+    imageUrls.length === 0 ||
+    !videoUrl ||
+    !matchtitle ||
+    !venue ||
+    !date ||
+    !live
+  ) {
+    return res.status(400).json({
+      error:
+        "All fields are required and imageUrl should be a non-empty array.",
+    });
   }
 
   const blog = await Blog.findById(req.params.id);
@@ -164,9 +189,8 @@ const updateBlog = asyncHandler(async (req, res) => {
 
   blog.title = title;
   blog.description = description;
-  blog.imageUrl = imageUrl;
+  blog.imageUrls = imageUrls;
   blog.user = userId;
- 
 
   const updatedBlog = await blog.save();
   res.json(updatedBlog);
