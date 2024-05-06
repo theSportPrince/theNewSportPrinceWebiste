@@ -32,6 +32,26 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  weatherreport: {
+    type: String,
+    required: true,
+  },
+  pitchreport: {
+    type: String,
+    required: true,
+  },
+  teamnews: {
+    type: String,
+    required: true,
+  },
+  squad: {
+    type: String,
+    required: true,
+  },
+  predictionresult: {
+    type: String,
+    required: true,
+  },
   venue: {
     type: String,
     required: true,
@@ -44,7 +64,15 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  playerNames: {
+    type: [String], // Array of player names
+    validate: [arrayLimitPlayers, "{PATH} exceeds the limit of 11"],
+  },
 });
+
+function arrayLimitPlayers(val){
+  return val.length >= 11;
+}
 
 // Custom validation function to limit the array length
 function arrayLimit(val) {
