@@ -66,7 +66,7 @@ const blogSchema = new mongoose.Schema({
   },
   playerNames: {
     type: [String], // Array of player names
-    validate: [arrayLimitPlayers, "{PATH} exceeds the limit of 11"],
+    // validate: [arrayLimitPlayers, "{PATH} exceeds the limit of 11"],
   },
 });
 
