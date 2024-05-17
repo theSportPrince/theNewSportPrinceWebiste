@@ -83,7 +83,7 @@ const createBlog = asyncHandler(async (req, res) => {
 });
 
 const getBlogs = asyncHandler(async (req, res) => {
-  const blogs = await Blog.find().populate("user", "name email");
+  const blogs = await Blog.find().populate("user", "name email").sort({ updatedAt: -1, createdAt: -1 });
   res.json(blogs);
 });
 
