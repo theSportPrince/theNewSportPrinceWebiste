@@ -4,6 +4,7 @@ const User = require("../Models/UserModal");
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
+    console.log("i am inside the blog controller")
     const {
       title,
       description,
