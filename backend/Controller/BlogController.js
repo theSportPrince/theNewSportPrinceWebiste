@@ -4,7 +4,6 @@ const User = require("../Models/UserModal");
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
-    console.log("i am inside the blog controller")
     const {
       title,
       description,
@@ -74,10 +73,12 @@ const createBlog = asyncHandler(async (req, res) => {
       teamaname,
     });
 
+    console.log("this is the blog",blog)
+
     const createdBlog = await blog.save();
     res.status(201).json(createdBlog);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error });
   }
 });
 
