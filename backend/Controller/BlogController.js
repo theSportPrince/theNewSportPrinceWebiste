@@ -32,14 +32,7 @@ const createBlog = asyncHandler(async (req, res) => {
       !imageUrls ||
       imageUrls.length === 0 ||
       !videoUrl ||
-      !matchtitle ||
-      !venue ||
-      !date ||
-      !live ||
-      !TeamA ||
-      !TeamB ||
-      !teambname ||
-      !teamaname
+      !matchtitle
     ){
       return res.status(400).json({
         error:
@@ -116,10 +109,7 @@ const updateBlog = asyncHandler(async (req, res) => {
     !imageUrls ||
     imageUrls.length === 0 ||
     !videoUrl ||
-    !matchtitle ||
-    !venue ||
-    !date ||
-    !live
+    !matchtitle
   ) {
     return res.status(400).json({
       error:
