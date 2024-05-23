@@ -75,6 +75,7 @@ const createBlog = asyncHandler(async (req, res) => {
 // Get Blogs
 const getBlogs = asyncHandler(async (req, res) => {
   const blogs = await Blog.find().populate("user", "name email").sort({ createdAt: -1 });
+  console.log("this is the blog",blogs)
   res.json(blogs);
 });
 
