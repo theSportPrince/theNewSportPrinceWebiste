@@ -29,10 +29,7 @@ const createBlog = asyncHandler(async (req, res) => {
     if (
       !title ||
       !description ||
-      !user ||
-      !videoUrl ||
-      !matchtitle ||
-      !venue 
+      !user
     ) {
       return res.status(400).json({
         error: "All fields are required.",
