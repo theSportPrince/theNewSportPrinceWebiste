@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Blog = require("../Models/BlogModel");
 const User = require("../Models/UserModal");
 
+// Create Blog
 const createBlog = asyncHandler(async (req, res) => {
   try {
     const {
@@ -14,29 +15,27 @@ const createBlog = asyncHandler(async (req, res) => {
       venue,
       date,
       live,
-      weatherReport,
-      pitchReport,
-      Squad,
-      TeamNews,
-      PredictionResult,
+      weatherreport,
+      pitchreport,
+      squad,
+      teamnews,
+      predictionresult,
       TeamA,
       TeamB,
-      teambname,
       teamaname,
+      teambname
     } = req.body;
 
     if (
-      !user ||
       !title ||
       !description ||
-      !imageUrls ||
-      imageUrls.length === 0 ||
+      !user ||
       !videoUrl ||
-      !matchtitle
-    ){
+      !matchtitle ||
+      !venue 
+    ) {
       return res.status(400).json({
-        error:
-          "All fields are required and imageUrl should be a non-empty array. Player names should contain exactly 11 players.",
+        error: "All fields are required.",
       });
     }
 
@@ -55,65 +54,74 @@ const createBlog = asyncHandler(async (req, res) => {
       venue,
       date,
       live,
-      weatherreport: weatherReport || "",
-      pitchreport: pitchReport || "",
-      squad: Squad || "", 
-      teamnews: TeamNews || "",
-      predictionresult: PredictionResult || "",
+      weatherreport,
+      pitchreport,
+      squad,
+      teamnews,
+      predictionresult,
       TeamA,
       TeamB,
-      teambname,
       teamaname,
+      teambname
     });
-
-    console.log("this is the blog",blog)
 
     const createdBlog = await blog.save();
     res.status(201).json(createdBlog);
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
+// Get Blogs
 const getBlogs = asyncHandler(async (req, res) => {
-  const blogs = await Blog.find().populate("user", "name email").sort({ updatedAt: -1, createdAt: -1 });
+  const blogs = await Blog.find().populate("user", "name email");
   res.json(blogs);
 });
 
+// Update Blog
 const updateBlog = asyncHandler(async (req, res) => {
   const {
     title,
     description,
     imageUrls,
     videoUrl,
-    userId,
+    user,
     matchtitle,
     venue,
     date,
     live,
-    weatherReport,
-    pitchReport,
-    Squad,
-    TeamNews,
-    PredictionResult,
+    weatherreport,
+    pitchreport,
+    squad,
+    teamnews,
+    predictionresult,
     TeamA,
     TeamB,
-    teambname,
     teamaname,
+    teambname
   } = req.body;
 
   if (
-    !userId ||
     !title ||
     !description ||
-    !imageUrls ||
-    imageUrls.length === 0 ||
+    !user ||
     !videoUrl ||
-    !matchtitle
+    !matchtitle ||
+    !venue ||
+    !date ||
+    !live ||
+    !weatherreport ||
+    !pitchreport ||
+    !squad ||
+    !teamnews ||
+    !predictionresult ||
+    !TeamA ||
+    !TeamB ||
+    !teamaname ||
+    !teambname
   ) {
     return res.status(400).json({
-      error:
-        "All required fields must be provided, and imageUrl should be a non-empty array.",
+      error: "All fields are required.",
     });
   }
 
@@ -122,42 +130,39 @@ const updateBlog = asyncHandler(async (req, res) => {
     return res.status(404).json({ error: "Blog not found" });
   }
 
-  const user = await User.findById(userId);
-  if (!user) {
+  const blogger = await User.findById(user);
+  if (!blogger) {
     return res.status(404).json({ error: "User not found" });
   }
 
-  // Update the blog fields
   blog.title = title;
   blog.description = description;
   blog.imageUrls = imageUrls;
   blog.videoUrl = videoUrl;
-  blog.user = userId;
+  blog.user = user;
   blog.matchtitle = matchtitle;
   blog.venue = venue;
   blog.date = date;
   blog.live = live;
-  blog.weatherreport = weatherReport || "";
-  blog.pitchreport = pitchReport || "";
-  blog.squad = Squad || "";
-  blog.teamnews = TeamNews || "";
-  blog.predictionresult = PredictionResult || "";
+  blog.weatherreport = weatherreport;
+  blog.pitchreport = pitchreport;
+  blog.squad = squad;
+  blog.teamnews = teamnews;
+  blog.predictionresult = predictionresult;
   blog.TeamA = TeamA;
   blog.TeamB = TeamB;
-  blog.teambname = teambname;
   blog.teamaname = teamaname;
+  blog.teambname = teambname;
 
   const updatedBlog = await blog.save();
   res.json(updatedBlog);
 });
 
-
+// Delete Blog
 const deleteBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findByIdAndDelete(req.params.id);
-
   if (!blog) {
-    res.status(404);
-    throw new Error("Blog not found");
+    return res.status(404).json({ error: "Blog not found" });
   }
   res.json({ message: "Blog removed" });
 });
