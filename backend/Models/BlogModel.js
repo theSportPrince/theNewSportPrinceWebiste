@@ -84,6 +84,10 @@ const blogSchema = new mongoose.Schema({
     type: String, 
     required: true,
   },
+  blogcategory: { 
+    type: String, 
+    required: true,
+  },
 
 
 });
