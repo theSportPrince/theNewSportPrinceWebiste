@@ -24,6 +24,7 @@ const createBlog = asyncHandler(async (req, res) => {
       teambname,
       teamaname,
       category, 
+      blogcategory
     } = req.body;
 
   
@@ -34,7 +35,8 @@ const createBlog = asyncHandler(async (req, res) => {
       !imageUrls ||
       !videoUrl ||
       !matchtitle||
-      !category 
+      !category ||
+      !blogcategory
     ){
       return res.status(400).json({
         error:
@@ -67,6 +69,7 @@ const createBlog = asyncHandler(async (req, res) => {
       teambname,
       teamaname,
       category,
+      blogcategory,
     });
 
     console.log("this is the blog",blog)
@@ -104,6 +107,7 @@ const updateBlog = asyncHandler(async (req, res) => {
     teambname,
     teamaname,
     category,
+    blogcategory,
   } = req.body;
 
   if (
@@ -113,7 +117,8 @@ const updateBlog = asyncHandler(async (req, res) => {
     !imageUrls ||
     !videoUrl ||
     !matchtitle||
-    !category
+    !category||
+    !blogcategory
   ) {
     return res.status(400).json({
       error:
@@ -151,6 +156,7 @@ const updateBlog = asyncHandler(async (req, res) => {
   blog.teambname = teambname;
   blog.teamaname = teamaname;
   blog.category = category;
+  blog.blogcategory=blogcategory;
 
   const updatedBlog = await blog.save();
   res.json(updatedBlog);
