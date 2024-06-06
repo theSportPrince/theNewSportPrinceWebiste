@@ -82,8 +82,29 @@ const createBlog = asyncHandler(async (req, res) => {
 });
 
 const getBlogs = asyncHandler(async (req, res) => {
-  const blogs = await Blog.find().populate("user", "name email").sort({ updatedAt: -1, createdAt: -1 });
-  res.json(blogs);
+  const { category } = req.query;
+  let query = {};
+
+  if (category) {
+    query.blogcategory = category;
+  } else {
+    query.blogcategory = { $nin: ["football", "tennis"] };
+  }
+
+  try {
+    let blogs = await Blog.find(query)
+      .populate("user", "name email")
+      .sort({ updatedAt: -1, createdAt: -1 });
+
+    if (blogs.length === 1) {
+      const blogCopy = JSON.parse(JSON.stringify(blogs[0])); // Deep copy
+      blogs = [blogs[0], blogCopy, blogCopy, blogCopy];
+    }
+
+    res.json(blogs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 const updateBlog = asyncHandler(async (req, res) => {
