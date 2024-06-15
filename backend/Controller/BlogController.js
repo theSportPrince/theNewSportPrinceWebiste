@@ -83,6 +83,7 @@ const createBlog = asyncHandler(async (req, res) => {
 });
 
 const getBlogs = asyncHandler(async (req, res) => {
+  console.log("fetching");
   const { category } = req.query;
   let query = {};
 
