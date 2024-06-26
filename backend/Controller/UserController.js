@@ -11,7 +11,7 @@ exports.fetchUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    console.log("user fetched successfully");
+  
     // Send the user data in the response
     res.status(200).json({ user });
   } catch (error) {
