@@ -44,7 +44,7 @@ const createBlog = asyncHandler(async (req, res) => {
       });
     }
 
-     console.log("everything working fine");
+ 
     const blogger = await User.findById(user);
     if (!blogger) {
       return res.status(404).json({ error: "User not found" });
