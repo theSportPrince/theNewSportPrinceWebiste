@@ -73,7 +73,7 @@ const createBlog = asyncHandler(async (req, res) => {
       blogcategory,
     });
 
-    console.log("this is the blog",blog)
+  
 
     const createdBlog = await blog.save();
     res.status(201).json(createdBlog);
