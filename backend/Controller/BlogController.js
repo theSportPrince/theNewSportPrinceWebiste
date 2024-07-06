@@ -83,7 +83,7 @@ const createBlog = asyncHandler(async (req, res) => {
 });
 
 const getBlogs = asyncHandler(async (req, res) => {
-  console.log("fetching");
+  
   const { category } = req.query;
   let query = {};
 
@@ -159,7 +159,7 @@ const updateBlog = asyncHandler(async (req, res) => {
     return res.status(404).json({ error: "User not found" });
   }
 
-  // Update the blog fields
+
   blog.title = title;
   blog.description = description;
   blog.imageUrls = imageUrls;
