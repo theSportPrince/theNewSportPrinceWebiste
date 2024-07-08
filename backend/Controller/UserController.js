@@ -4,7 +4,7 @@ const contact = require("../Models/ContactModel");
 exports.fetchUser = async (req, res) => {
   try {
     const { id } = req.query;
-    console.log(id);
+  
 
     const user = await User.findById(id);
     
