@@ -195,5 +195,4 @@ const deleteBlog = asyncHandler(async (req, res) => {
   }
   res.json({ message: "Blog removed" });
 });
-
 module.exports = { createBlog, getBlogs, updateBlog, deleteBlog };
