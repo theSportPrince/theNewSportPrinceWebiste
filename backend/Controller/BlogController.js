@@ -40,7 +40,7 @@ const createBlog = asyncHandler(async (req, res) => {
     ){
       return res.status(400).json({
         error:
-          "All fields are required and imageUrl should be a non-empty array. Player names should contain exactly 11 players.",
+          "All fields are required, imageUrl should be a non-empty array. Player names should contain exactly 11 players.",
       });
     }
 
