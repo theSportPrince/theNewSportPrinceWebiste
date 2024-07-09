@@ -11,6 +11,7 @@ const indexRouter = require("./Routes/IndexRoute");
 const chatRoutes = require("./Routes/chatRoutes");
 const messageRoutes = require("./Routes/messageRoutes");
 const blogRoutes = require("./Routes/BlogRoutes");
+const PollRoute=require("./Routes/PollRoutes")
 
 require("dotenv").config();
 
@@ -42,19 +43,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 
-// passport.serializeUser((user, done) => {
-//   done(null, user.id);
-// });
 
-// passport.deserializeUser((id, done) => {
-//   User.findById(id)
-//     .then((user) => {
-//       done(null, user);
-//     })
-//     .catch((err) => {
-//       done(err, null);
-//     });
-// });
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -104,20 +93,9 @@ app.use("api", userRoutes);
 app.use("/api/message", messageRoutes);
 app.use("/api", blogRoutes);
 app.use("/api", userRoutes);
+app.use("/api",PollRoute);
 
-// app.get(
-//   "/auth/google/callback",
 
-//   passport.authenticate("google", {
-//     // successRedirect: "http://localhost:3000/home",
-//     failureRedirect: "http://localhost:3000/register",
-//   }),
-//   (req, res) => {
-//     req.session.user = req.user;
-//     console.log("----req,user", req.user);
-//     res.redirect("http://localhost:3000/home");
-//   }
-// );
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
@@ -130,8 +108,8 @@ app.get(
     req.session.user = req.user;
     loggedInUserProfile = req.user;
     flag = true;
-    console.log("----req.user", req.user);
-    res.redirect("https://thesportsprince.com");
+  
+    res.redirect("http://localhost:3000");
   }
 );
 app.get("/login/sucess", async (req, res) => {
@@ -151,45 +129,7 @@ const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// const io = require("socket.io")(server, {
-//   pingTimeout: 60000,
-//   cors: {
-//     origin: "http://localhost:3000",
-//     // credentials: true,
-//   },
-// });
 
-// io.on("connection", (socket) => {
-//   console.log("Connected to socket.io");
-//   socket.on("setup", (userData) => {
-//     socket.join(userData._id);
-//     socket.emit("connected");
-//   });
-
-//   socket.on("join chat", (room) => {
-//     socket.join(room);
-//     console.log("User Joined Room: " + room);
-//   });
-//   socket.on("typing", (room) => socket.in(room).emit("typing"));
-//   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
-
-//   socket.on("new message", (newMessageRecieved) => {
-//     var chat = newMessageRecieved.chat;
-
-//     if (!chat.users) return console.log("chat.users not defined");
-
-//     chat.users.forEach((user) => {
-//       if (user._id == newMessageRecieved.sender._id) return;
-
-//       socket.in(user._id).emit("message recieved", newMessageRecieved);
-//     });
-//   });
-
-//   socket.off("setup", () => {
-//     console.log("USER DISCONNECTED");
-//     socket.leave(userData._id);
-//   });
-// });
 
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
@@ -219,7 +159,7 @@ io.on("connection", (socket) => {
     if (!chat.users) return console.log("chat.users not defined");
 
     chat.users.forEach((user) => {
-      if (user._id == newMessageRecieved.sender._id) return;
+      // if (user._id == newMessageRecieved.sender._id) return;
 
       socket.in(user._id).emit("message recieved", newMessageRecieved);
     });
