@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Blog = require("../Models/BlogModel");
 const User = require("../Models/UserModal");
-
 const createBlog = asyncHandler(async (req, res) => {
   try {
     const {
