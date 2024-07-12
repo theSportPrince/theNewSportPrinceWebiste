@@ -26,7 +26,6 @@ const createBlog = asyncHandler(async (req, res) => {
       blogcategory
     } = req.body;
 
-  
     if (
       !user ||
       !title ||
