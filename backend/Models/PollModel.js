@@ -15,9 +15,18 @@ const pollSchema = new mongoose.Schema({
       required: true,
     },
   ],
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  blog: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Blog",
+    required: true,
   },
 });
 
