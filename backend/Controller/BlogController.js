@@ -41,7 +41,6 @@ const createBlog = asyncHandler(async (req, res) => {
           "All fields are required, imageUrl should be a non-empty array. Player names should contain exactly 11 players.",
       });
     }
-
     const blogger = await User.findById(user);
     if (!blogger) {
       return res.status(404).json({ error: "User not found" });
