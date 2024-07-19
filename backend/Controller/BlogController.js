@@ -45,7 +45,6 @@ const createBlog = asyncHandler(async (req, res) => {
     if (!blogger) {
       return res.status(404).json({ error: "User not found" });
     }
-
     const blog = new Blog({
       title,
       description,
