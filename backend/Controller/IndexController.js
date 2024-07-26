@@ -1,7 +1,7 @@
 
 const exampleController = {
   index: (req, res) => {
-    console.log("heelo");
+    console.log("helo");
     res.send('Welcome to the example controller!');
   }
 };
